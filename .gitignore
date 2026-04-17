@@ -1,0 +1,9 @@
+node_modules
+.env
+
+backend/data
+backend/mongo-data
+backend/tailor-mongo-data
+backend/test-mongo
+
+*.log
