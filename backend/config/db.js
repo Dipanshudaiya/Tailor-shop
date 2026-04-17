@@ -74,7 +74,8 @@ const connectDB = async () => {
         }
 
         const conn = await mongoose.connect(mongoUri, {
-            serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of default 30s
+            serverSelectionTimeoutMS: 5000, 
+            bufferCommands: false, // Don't buffer queries if connection is down
         });
 
         isConnected = !!conn.connections[0].readyState;
