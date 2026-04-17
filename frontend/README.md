@@ -1,16 +1,36 @@
-# React + Vite
+# 🎨 As You Like - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend portion of the **As You Like** Bespoke Tailoring Shop application. Built with React.js and Vite.
 
-Currently, two official plugins are available:
+## 🚀 Features
+- **Dynamic Product Catalog**: Filter and browse suits, shirts, and fabrics.
+- **Interactive UI**: Powered by Framer Motion for smooth transitions.
+- **Responsive Design**: Fully optimized for mobile and desktop.
+- **State Management**: Context API / Hooks for cart and user state.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🛠️ Getting Started
 
-## React Compiler
+### 1. Installation
+```bash
+npm install
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 2. Run in Development
+```bash
+npm run dev
+```
 
-## Expanding the ESLint configuration
+### 3. Build for Production
+```bash
+npm run build
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🔌 API Connection
+The frontend communicates with the backend via a proxy or base URL configured in `src/services/api.js`. In production (Vercel), API requests are rewritten as per `vercel.json` in the root directory.
+
+## 📁 Folder Structure
+- `src/components`: Reusable UI components.
+- `src/pages`: Main view components.
+- `src/services`: API call logic.
+- `src/store`: State management logic.
+- `src/assets`: Images and icons.

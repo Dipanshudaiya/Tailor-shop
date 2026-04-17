@@ -7,10 +7,23 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Node modules
 node_modules
+
+# Build files
 dist
 dist-ssr
+
+# Env files
+.env
+backend/.env
 *.local
+
+# MongoDB data (VERY IMPORTANT)
+backend/data
+backend/mongo-data
+backend/tailor-mongo-data
+backend/test-mongo
 
 # Editor directories and files
 .vscode/*

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { HiOutlineUser, HiOutlineMail, HiOutlineLockClosed, HiArrowRight } from 'react-icons/hi';
+import toast from 'react-hot-toast';
 import useAuthStore from '../../store/authStore';
 import Button from '../../components/ui/Button';
 
@@ -12,8 +13,15 @@ const SignupPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const success = await register(formData.name, formData.email, formData.password);
-        if (success) navigate('/');
+        try {
+            const data = await register(formData.name, formData.email, formData.password);
+            if (data) {
+                toast.success('Account created successfully!');
+                navigate('/');
+            }
+        } catch (error) {
+            toast.error(error || 'Registration failed. Please try again.');
+        }
     };
 
     return (

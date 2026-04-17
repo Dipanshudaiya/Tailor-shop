@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { HiOutlineMail, HiOutlineLockClosed, HiArrowRight } from 'react-icons/hi';
+import toast from 'react-hot-toast';
 import useAuthStore from '../../store/authStore';
 import Button from '../../components/ui/Button';
 
@@ -13,13 +14,18 @@ const LoginPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = await login(email, password);
-        if (data) {
-            if (data.role === 'admin') {
-                navigate('/admin');
-            } else {
-                navigate('/');
+        try {
+            const data = await login(email, password);
+            if (data) {
+                toast.success(`Welcome back, ${data.name}!`);
+                if (data.role === 'admin') {
+                    navigate('/admin');
+                } else {
+                    navigate('/');
+                }
             }
+        } catch (error) {
+            toast.error(error || 'Login failed. Please check your credentials.');
         }
     };
 

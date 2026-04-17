@@ -57,21 +57,31 @@
 // module.exports = connectDB;
 const mongoose = require('mongoose');
 
+let isConnected = false;
+
 const connectDB = async () => {
+    if (isConnected) {
+        console.log('✅ Using existing MongoDB connection');
+        return;
+    }
+
     try {
         const mongoUri = process.env.MONGO_URI;
 
         if (!mongoUri) {
-            console.error("❌ MONGO_URI not found in .env");
-            process.exit(1);
+            console.error("❌ MONGO_URI not found in environment variables.");
+            return;
         }
 
-        const conn = await mongoose.connect(mongoUri);
+        const conn = await mongoose.connect(mongoUri, {
+            serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of default 30s
+        });
 
+        isConnected = !!conn.connections[0].readyState;
         console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
+        return conn;
     } catch (error) {
         console.error(`❌ MongoDB Error: ${error.message}`);
-        process.exit(1);
     }
 };
 
