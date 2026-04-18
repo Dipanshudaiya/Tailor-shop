@@ -77,6 +77,7 @@ const LoginPage = () => {
 
                     <Button 
                         type="submit" 
+                        onClick={() => console.log('Login button clicked')}
                         className="w-full h-12 text-lg group" 
                         loading={loading}
                     >
