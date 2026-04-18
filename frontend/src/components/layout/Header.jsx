@@ -100,6 +100,14 @@ const Header = () => {
 
                 {/* Desktop Nav */}
                 <nav className="hidden lg:flex items-center gap-4">
+                    {user?.role === 'admin' && (
+                        <Link
+                            to="/admin"
+                            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary/20 border border-primary text-primary font-bold text-xs uppercase tracking-wider hover:bg-primary hover:text-white transition-all shadow-lg shadow-primary/20"
+                        >
+                            Admin Dashboard
+                        </Link>
+                    )}
                     {NAV_LINKS.map((link) => (
                         <div
                             key={link.title}
@@ -230,8 +238,16 @@ const Header = () => {
                                             )}
                                         </Link>
 
-                                        {/* Divider */}
-                                        <div style={{ height: '1px', background: 'rgba(255,255,255,0.07)', margin: '12px 6px' }} />
+                                        {/* Admin Dashboard (Mobile) */}
+                                        {user?.role === 'admin' && (
+                                            <>
+                                                <Link to="/admin" onClick={closeSidebar} style={navLinkBase(location.pathname === '/admin')}>
+                                                    <span style={{ color: '#a78bfa', flexShrink: 0 }}><HiOutlineSparkles size={20} /></span>
+                                                    <span style={{ color: '#a78bfa', fontWeight: '800' }}>Admin Dashboard</span>
+                                                </Link>
+                                                <div style={{ height: '1px', background: 'rgba(255,255,255,0.07)', margin: '12px 6px' }} />
+                                            </>
+                                        )}
 
                                         {/* User section */}
                                         {user ? (
