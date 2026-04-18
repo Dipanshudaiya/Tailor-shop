@@ -14,6 +14,16 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Database connection middleware for serverless/Vercel
+app.use(async (req, res, next) => {
+    try {
+        await connectDB();
+        next();
+    } catch (error) {
+        next(error);
+    }
+});
+
 app.get('/', (req, res) => {
     res.send('API is running...');
 });
@@ -31,29 +41,34 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
-    await connectDB();
+    // In local development or if seeding is requested
+    const shouldSeed = process.env.NODE_ENV === 'development' || process.env.SEED_DB === 'true';
     
-    // Seed data ONLY in development and if explicitly requested or if DB is empty
-    if (process.env.NODE_ENV === 'development') {
+    if (shouldSeed) {
+        await connectDB();
         const productCount = await Product.countDocuments();
         if (productCount === 0) {
             console.log('Seeding initial data...');
             const productsData = require('./data/products');
             
             // Admin user
-            await User.create({ 
-                name: 'Admin', 
-                email: 'admin@tailorshop.com', 
-                password: '123456', 
-                role: 'admin' 
-            });
+            const adminExists = await User.findOne({ email: 'admin@tailorshop.com' });
+            if (!adminExists) {
+                await User.create({ 
+                    name: 'Admin', 
+                    email: 'admin@tailorshop.com', 
+                    password: '123456', 
+                    role: 'admin' 
+                });
+            }
 
             await Product.create(productsData);
             console.log('--- Data Seeded Successfully! ---');
         }
     }
 
-    if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+    // Only listen if not on Vercel
+    if (!process.env.VERCEL) {
         app.listen(PORT, () => {
             console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
         });
@@ -63,3 +78,4 @@ const startServer = async () => {
 startServer();
 
 module.exports = app;
+
