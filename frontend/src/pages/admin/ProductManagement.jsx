@@ -124,24 +124,24 @@ const ProductManagement = () => {
     };
 
     return (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="p-8 pb-24 space-y-12">
-            <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 bg-dark-card border border-white/5 p-8 rounded-[2rem]">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="p-0 md:p-4 space-y-6 md:space-y-12">
+            <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 bg-dark-card border border-white/5 p-6 md:p-8 rounded-2xl md:rounded-[2rem]">
                 <div>
-                    <h1 className="text-3xl font-display font-bold text-white">Product <span className="text-primary italic">Management</span></h1>
+                    <h1 className="text-2xl md:text-3xl font-display font-bold text-white">Product <span className="text-primary italic">Management</span></h1>
                     <p className="text-slate-500 text-sm">Create and organize your catalog.</p>
                 </div>
-                <Button onClick={() => { resetForm(); setIsModalOpen(true); }}>
+                <Button onClick={() => { resetForm(); setIsModalOpen(true); }} className="w-full md:w-auto">
                     <HiPlus className="mr-2" /> Add New Product
                 </Button>
             </header>
 
             {/* Tabs */}
-            <div className="flex overflow-x-auto pb-2 gap-2 no-scrollbar">
+            <div className="flex overflow-x-auto pb-2 gap-2 no-scrollbar scroll-smooth">
                 {tabs.map((tab) => (
                     <button
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
-                        className={`px-6 py-2.5 rounded-xl border text-sm font-bold transition-all whitespace-nowrap ${
+                        className={`px-5 py-2 rounded-xl border text-xs md:text-sm font-bold transition-all whitespace-nowrap ${
                             activeTab === tab.id 
                                 ? 'bg-primary border-primary text-white shadow-lg shadow-primary/20' 
                                 : 'bg-white/5 border-white/10 text-slate-400 hover:text-white hover:bg-white/10'
@@ -152,44 +152,46 @@ const ProductManagement = () => {
                 ))}
             </div>
 
-            <div className="bg-dark-card border border-white/5 rounded-[2rem] overflow-hidden shadow-2xl">
-                <table className="w-full text-left">
-                    <thead className="bg-white/3 text-slate-500 font-bold text-[10px] uppercase tracking-widest border-b border-white/5">
-                        <tr>
-                            <th className="p-6">Product</th>
-                            <th className="p-6">Category</th>
-                            <th className="p-6">Price</th>
-                            <th className="p-6">Discount</th>
-                            <th className="p-6 text-right">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody className="divide-y divide-white/5">
-                        {filteredProducts.map(p => (
-                            <tr key={p._id} className="hover:bg-white/3 transition-colors group">
-                                <td className="p-6">
-                                    <div className="flex items-center gap-4">
-                                        <img src={p.image} className="w-12 h-12 rounded-lg object-cover border border-white/10" />
-                                        <div>
-                                            <p className="font-bold text-white group-hover:text-primary transition-colors">{p.name}</p>
-                                            <p className="text-[10px] text-slate-500 uppercase tracking-widest">{p.brand || 'No Brand'}</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className="p-6 text-slate-400 capitalize text-sm">{p.category} / {p.subCategory}</td>
-                                <td className="p-6 text-primary font-bold">₹{p.price}</td>
-                                <td className="p-6 text-accent font-bold">{p.discount || 0}%</td>
-                                <td className="p-6">
-                                    <div className="flex justify-end gap-2">
-                                        <button onClick={() => handleEdit(p)} className="p-3 bg-white/5 text-slate-400 hover:text-white hover:bg-primary transition-all rounded-xl border border-white/5"><HiPencil size={18} /></button>
-                                        <button onClick={() => handleDelete(p._id)} className="p-3 bg-white/5 text-slate-400 hover:text-red-500 hover:bg-red-500/10 transition-all rounded-xl border border-white/5"><HiTrash size={18} /></button>
-                                    </div>
-                                </td>
+            <div className="bg-dark-card border border-white/5 rounded-2xl md:rounded-[2rem] overflow-hidden shadow-2xl">
+                <div className="overflow-x-auto no-scrollbar">
+                    <table className="w-full text-left min-w-[700px] md:min-w-full">
+                        <thead className="bg-white/3 text-slate-500 font-bold text-[10px] uppercase tracking-widest border-b border-white/5">
+                            <tr>
+                                <th className="p-4 md:p-6">Product</th>
+                                <th className="p-4 md:p-6">Category</th>
+                                <th className="p-4 md:p-6">Price</th>
+                                <th className="p-4 md:p-6">Discount</th>
+                                <th className="p-4 md:p-6 text-right">Actions</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-                {loading && <div className="p-20 text-center text-slate-500">Loading products...</div>}
-                {!loading && products.length === 0 && <div className="p-20 text-center text-slate-500">No products found.</div>}
+                        </thead>
+                        <tbody className="divide-y divide-white/5">
+                            {filteredProducts.map(p => (
+                                <tr key={p._id} className="hover:bg-white/3 transition-colors group">
+                                    <td className="p-4 md:p-6">
+                                        <div className="flex items-center gap-3 md:gap-4">
+                                            <img src={p.image} className="w-10 h-10 md:w-12 md:h-12 rounded-lg object-cover border border-white/10 shrink-0" />
+                                            <div className="min-w-0">
+                                                <p className="font-bold text-white group-hover:text-primary transition-colors truncate max-w-[150px] md:max-w-xs">{p.name}</p>
+                                                <p className="text-[10px] text-slate-500 uppercase tracking-widest truncate">{p.brand || 'No Brand'}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td className="p-4 md:p-6 text-slate-400 capitalize text-xs md:text-sm">{p.category} / {p.subCategory}</td>
+                                    <td className="p-4 md:p-6 text-primary font-bold">₹{p.price}</td>
+                                    <td className="p-4 md:p-6 text-accent font-bold">{p.discount || 0}%</td>
+                                    <td className="p-4 md:p-6">
+                                        <div className="flex justify-end gap-1.5 md:gap-2">
+                                            <button onClick={() => handleEdit(p)} className="p-2.5 md:p-3 bg-white/5 text-slate-400 hover:text-white hover:bg-primary transition-all rounded-xl border border-white/5"><HiPencil size={16} /></button>
+                                            <button onClick={() => handleDelete(p._id)} className="p-2.5 md:p-3 bg-white/5 text-slate-400 hover:text-red-500 hover:bg-red-500/10 transition-all rounded-xl border border-white/5"><HiTrash size={16} /></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                {loading && <div className="p-12 md:p-20 text-center text-slate-500">Loading products...</div>}
+                {!loading && products.length === 0 && <div className="p-12 md:p-20 text-center text-slate-500">No products found.</div>}
             </div>
 
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title={editingProduct ? 'Edit Product' : 'Add New Product'} maxWidth="max-w-2xl">

@@ -321,15 +321,15 @@ const OrderManagement = () => {
     };
 
     return (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="p-8 pb-24 space-y-12">
-            <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 bg-dark-card border border-white/5 p-8 rounded-[2rem]">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="p-0 md:p-4 space-y-6 md:space-y-12">
+            <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 bg-dark-card border border-white/5 p-6 md:p-8 rounded-2xl md:rounded-[2rem]">
                 <div>
-                    <h1 className="text-3xl font-display font-bold text-white">Order <span className="text-primary italic">Fulfillment</span></h1>
+                    <h1 className="text-2xl md:text-3xl font-display font-bold text-white">Order <span className="text-primary italic">Fulfillment</span></h1>
                     <p className="text-slate-500 text-sm">Manage customer bookings, payments and tailoring status.</p>
                 </div>
                 <button 
                     onClick={fetchOrders}
-                    className="flex items-center gap-2 px-6 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-sm font-bold text-slate-300 hover:text-white transition-all"
+                    className="flex items-center gap-2 px-6 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-sm font-bold text-slate-300 hover:text-white transition-all w-full md:w-auto justify-center"
                     disabled={loading}
                 >
                     <HiOutlineClock className={loading ? 'animate-spin' : ''} size={18} />
@@ -338,9 +338,9 @@ const OrderManagement = () => {
             </header>
 
             {/* Filters Row */}
-            <div className="flex flex-col xl:flex-row gap-6 items-start xl:items-center justify-between">
+            <div className="flex flex-col xl:flex-row gap-4 md:gap-6 items-stretch xl:items-center justify-between px-4 md:px-0">
                 {/* Search Bar */}
-                <div className="relative w-full max-w-md group">
+                <div className="relative w-full xl:max-w-md group">
                     <HiOutlineEye className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-primary transition-colors" size={20} />
                     <input 
                         type="text" 
@@ -353,12 +353,12 @@ const OrderManagement = () => {
 
 
                 {/* Filter Tabs */}
-                <div className="flex flex-wrap gap-2 p-1.5 bg-dark-card border border-white/5 rounded-2xl overflow-x-auto shadow-xl">
+                <div className="flex overflow-x-auto pb-2 gap-2 p-1.5 bg-dark-card border border-white/5 rounded-2xl no-scrollbar shadow-xl">
                     {['All', 'Delivered', 'Paid', 'Unpaid', 'Refund', 'Cancelled'].map(tab => (
                         <button
                             key={tab}
                             onClick={() => setFilterTab(tab)}
-                            className={`px-5 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all ${
+                            className={`px-4 py-2 md:px-5 md:py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all whitespace-nowrap ${
                                 filterTab === tab 
                                     ? 'bg-primary text-white shadow-lg shadow-primary/20 scale-105' 
                                     : 'text-slate-500 hover:text-slate-300 hover:bg-white/5'
@@ -370,9 +370,9 @@ const OrderManagement = () => {
                 </div>
             </div>
 
-            <div className="bg-dark-card border border-white/5 rounded-[2rem] overflow-hidden shadow-2xl">
-                <div className="overflow-x-auto">
-                    <table className="w-full text-left min-w-[1200px]">
+            <div className="bg-dark-card border border-white/5 rounded-2xl md:rounded-[2rem] overflow-hidden shadow-2xl mx-4 md:mx-0">
+                <div className="overflow-x-auto no-scrollbar">
+                    <table className="w-full text-left min-w-[1000px] md:min-w-full">
                         <thead className="bg-white/3 text-slate-500 font-bold text-[10px] uppercase tracking-widest border-b border-white/5">
                             <tr>
                                 <th className="p-4">Order ID</th>
@@ -410,7 +410,7 @@ const OrderManagement = () => {
 
                                     {/* CUSTOMER NAME */}
                                     <td className="p-4">
-                                        <p className="font-bold text-white group-hover:text-primary transition-colors text-sm">{o.user?.name || 'Guest'}</p>
+                                        <p className="font-bold text-white group-hover:text-primary transition-colors text-xs md:text-sm">{o.user?.name || 'Guest'}</p>
                                         <p className="text-[10px] text-slate-500">{o.user?.email || o.shippingAddress?.phone}</p>
                                     </td>
 
@@ -418,10 +418,10 @@ const OrderManagement = () => {
                                     <td className="p-4 text-center text-slate-400 text-xs font-medium">{o.items.length}</td>
 
                                     {/* TOTAL */}
-                                    <td className="p-4 text-primary font-bold text-sm">₹{o.totalPrice}</td>
+                                    <td className="p-4 text-primary font-bold text-xs md:text-sm">₹{o.totalPrice}</td>
 
                                     {/* ORDER DATE */}
-                                    <td className="p-4 text-slate-400 text-xs">
+                                    <td className="p-4 text-slate-400 text-[10px] md:text-xs whitespace-nowrap">
                                         {new Date(o.createdAt).toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })}
                                     </td>
 
@@ -434,7 +434,7 @@ const OrderManagement = () => {
 
                                     {/* ADDRESS */}
                                     <td className="p-4 max-w-[180px]">
-                                        <p className="text-[11px] text-white font-medium leading-tight">{o.shippingAddress?.city}, {o.shippingAddress?.state}</p>
+                                        <p className="text-[10px] md:text-[11px] text-white font-medium leading-tight truncate">{o.shippingAddress?.city}, {o.shippingAddress?.state}</p>
                                         <p className="text-[10px] text-slate-500 mt-0.5">{o.shippingAddress?.zip}</p>
                                     </td>
 
@@ -465,12 +465,12 @@ const OrderManagement = () => {
                                     </td>
 
                                     {/* ACTIONS */}
-                                    <td className="p-5">
-                                        <div className="flex justify-end gap-2">
-                                            <button onClick={() => handleStatusUpdate(o._id, 'confirmed')} title="Confirm" className="p-2 bg-white/5 text-green-500 hover:bg-green-500 hover:text-white rounded-lg border border-green-500/20 transition-all hover:scale-110"><HiCheckCircle size={16} /></button>
-                                            <button onClick={() => handleStatusUpdate(o._id, 'delivered')} title="Deliver" className="p-2 bg-white/5 text-primary hover:bg-primary hover:text-white rounded-lg border border-primary/20 transition-all hover:scale-110"><HiOutlineTruck size={16} /></button>
-                                            <button onClick={() => handleStatusUpdate(o._id, 'cancelled')} title="Cancel" className="p-2 bg-white/5 text-red-500 hover:bg-red-500 hover:text-white rounded-lg border border-red-500/20 transition-all hover:scale-110"><HiXCircle size={16} /></button>
-                                            <button onClick={() => handleDelete(o._id)} title="Delete" className="p-2 bg-white/5 text-slate-400 hover:bg-red-600 hover:text-white rounded-lg border border-white/5 transition-all hover:scale-110"><HiTrash size={16} /></button>
+                                    <td className="p-4">
+                                        <div className="flex justify-end gap-1 md:gap-2">
+                                            <button onClick={() => handleStatusUpdate(o._id, 'confirmed')} title="Confirm" className="p-2 bg-white/5 text-green-500 hover:bg-green-500 hover:text-white rounded-lg border border-green-500/20 transition-all"><HiCheckCircle size={16} /></button>
+                                            <button onClick={() => handleStatusUpdate(o._id, 'delivered')} title="Deliver" className="p-2 bg-white/5 text-primary hover:bg-primary hover:text-white rounded-lg border border-primary/20 transition-all"><HiOutlineTruck size={16} /></button>
+                                            <button onClick={() => handleStatusUpdate(o._id, 'cancelled')} title="Cancel" className="p-2 bg-white/5 text-red-500 hover:bg-red-500 hover:text-white rounded-lg border border-red-500/20 transition-all"><HiXCircle size={16} /></button>
+                                            <button onClick={() => handleDelete(o._id)} title="Delete" className="p-2 bg-white/5 text-slate-400 hover:bg-red-600 hover:text-white rounded-lg border border-white/5 transition-all"><HiTrash size={16} /></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -478,8 +478,8 @@ const OrderManagement = () => {
                         </tbody>
                     </table>
                 </div>
-                {loading && <div className="p-20 text-center text-slate-500">Loading orders...</div>}
-                {!loading && orders.length === 0 && <div className="p-20 text-center text-slate-500">No bookings yet.</div>}
+                {loading && <div className="p-12 md:p-20 text-center text-slate-500">Loading orders...</div>}
+                {!loading && orders.length === 0 && <div className="p-12 md:p-20 text-center text-slate-500">No bookings yet.</div>}
             </div>
 
             {/* Order Details Modal */}
