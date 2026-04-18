@@ -66,12 +66,13 @@ const startServer = async () => {
             // Admin user
             const adminExists = await User.findOne({ email: 'admin@tailorshop.com' });
             if (!adminExists) {
-                await User.create({ 
-                    name: 'Admin', 
-                    email: 'admin@tailorshop.com', 
-                    password: '123456', 
-                    role: 'admin' 
-                });
+                await User.create({
+                name: 'Admin',
+                email: 'admin@tailorshop.com',
+                password: '123456',
+                isAdmin: true
+            });
+            console.log('✅ Admin user created/reset (admin@tailorshop.com / 123456)');
             }
 
             await Product.create(productsData);
