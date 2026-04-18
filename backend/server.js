@@ -1,13 +1,13 @@
-const express = require('express');
 const dotenv = require('dotenv');
+dotenv.config();
+
+const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/errorHandler');
 const Product = require('./models/Product');
 const User = require('./models/User');
 const Order = require('./models/Order');
-
-dotenv.config();
 
 if (!process.env.JWT_SECRET) {
     console.warn('⚠️  WARNING: JWT_SECRET is not defined. Using a default secret for now. PLEASE set this in production/Vercel!');
