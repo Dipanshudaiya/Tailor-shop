@@ -64,17 +64,18 @@ const startServer = async () => {
             console.log('Seeding initial data...');
             const productsData = require('./data/products');
             
-            // Admin user
-            const adminExists = await User.findOne({ email: 'admin@tailorshop.com' });
-            if (!adminExists) {
-                await User.create({
-                name: 'Admin',
-                email: 'admin@tailorshop.com',
-                password: '123456',
-                isAdmin: true
-            });
-            console.log('✅ Admin user created/reset (admin@tailorshop.com / 123456)');
-            }
+            // Ensure Admin user exists with correct role
+            await User.findOneAndUpdate(
+                { email: 'admin@tailorshop.com' },
+                { 
+                    name: 'Admin', 
+                    email: 'admin@tailorshop.com', 
+                    password: '123456', 
+                    role: 'admin' 
+                },
+                { upsert: true, new: true }
+            );
+            console.log('✅ Admin user verified/created (admin@tailorshop.com / 123456)');
 
             await Product.create(productsData);
             console.log('--- Data Seeded Successfully! ---');
