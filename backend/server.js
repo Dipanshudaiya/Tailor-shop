@@ -64,18 +64,22 @@ const startServer = async () => {
             console.log('Seeding initial data...');
             const productsData = require('./data/products');
             
-            // Ensure Admin user exists with correct role
+            // Ensure Admin user exists with correct role and HASHED password
+            const bcrypt = require('bcryptjs');
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash('123456', salt);
+
             await User.findOneAndUpdate(
                 { email: 'admin@tailorshop.com' },
                 { 
                     name: 'Admin', 
                     email: 'admin@tailorshop.com', 
-                    password: '123456', 
+                    password: hashedPassword, 
                     role: 'admin' 
                 },
                 { upsert: true, new: true }
             );
-            console.log('✅ Admin user verified/created (admin@tailorshop.com / 123456)');
+            console.log('✅ Admin user verified/created with hashed password');
 
             await Product.create(productsData);
             console.log('--- Data Seeded Successfully! ---');
