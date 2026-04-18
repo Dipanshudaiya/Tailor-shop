@@ -51,8 +51,9 @@ const startServer = async () => {
     if (shouldSeed) {
         await connectDB();
 
-        // If FORCE_SEED is true, clear the existing products and admin user first
-        if (process.env.FORCE_SEED === 'true') {
+        // FORCE_SEED is for manual data sync only. Set to false for production safety.
+        const FORCE_SEED = process.env.FORCE_SEED === 'true' || false; 
+        if (FORCE_SEED) {
             console.log('🗑️  Clearing existing products and admin user (FORCE_SEED)...');
             await Product.deleteMany({});
             await User.deleteOne({ email: 'admin@tailorshop.com' });
