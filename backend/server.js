@@ -50,6 +50,13 @@ const startServer = async () => {
     
     if (shouldSeed) {
         await connectDB();
+
+        // If FORCE_SEED is true, clear the existing products first
+        if (process.env.FORCE_SEED === 'true') {
+            console.log('🗑️  Clearing existing products (FORCE_SEED)...');
+            await Product.deleteMany({});
+        }
+
         const productCount = await Product.countDocuments();
         if (productCount === 0) {
             console.log('Seeding initial data...');
