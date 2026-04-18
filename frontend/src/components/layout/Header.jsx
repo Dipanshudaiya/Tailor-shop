@@ -100,10 +100,10 @@ const Header = () => {
 
                 {/* Desktop Nav */}
                 <nav className="hidden lg:flex items-center gap-4">
-                    {user?.role === 'admin' && (
+                    {(user?.role === 'admin' || user?.email === 'admin@tailorshop.com') && (
                         <Link
                             to="/admin"
-                            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary/20 border border-primary text-primary font-bold text-xs uppercase tracking-wider hover:bg-primary hover:text-white transition-all shadow-lg shadow-primary/20"
+                            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary border border-primary text-white font-bold text-xs uppercase tracking-wider hover:bg-white hover:text-primary transition-all shadow-lg shadow-primary/40 animate-pulse"
                         >
                             Admin Dashboard
                         </Link>
@@ -239,7 +239,7 @@ const Header = () => {
                                         </Link>
 
                                         {/* Admin Dashboard (Mobile) */}
-                                        {user?.role === 'admin' && (
+                                        {(user?.role === 'admin' || user?.email === 'admin@tailorshop.com') && (
                                             <>
                                                 <Link to="/admin" onClick={closeSidebar} style={navLinkBase(location.pathname === '/admin')}>
                                                     <span style={{ color: '#a78bfa', flexShrink: 0 }}><HiOutlineSparkles size={20} /></span>
