@@ -9,6 +9,10 @@ const Order = require('./models/Order');
 
 dotenv.config();
 
+if (!process.env.JWT_SECRET) {
+    console.warn('⚠️  WARNING: JWT_SECRET is not defined. Using a default secret for now. PLEASE set this in production/Vercel!');
+}
+
 const app = express();
 
 app.use(cors());

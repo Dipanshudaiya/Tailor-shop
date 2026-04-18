@@ -7,7 +7,8 @@ const protect = async (req, res, next) => {
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         try {
             token = req.headers.authorization.split(' ')[1];
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            const secret = process.env.JWT_SECRET || 'tailorshop_default_secret_key_123';
+            const decoded = jwt.verify(token, secret);
             req.user = await User.findById(decoded.id).select('-password');
             if (!req.user && process.env.NODE_ENV === 'development') {
                 req.user = { _id: decoded.id, role: 'admin' };
