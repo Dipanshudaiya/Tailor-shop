@@ -51,10 +51,11 @@ const startServer = async () => {
     if (shouldSeed) {
         await connectDB();
 
-        // If FORCE_SEED is true, clear the existing products first
+        // If FORCE_SEED is true, clear the existing products and admin user first
         if (process.env.FORCE_SEED === 'true') {
-            console.log('🗑️  Clearing existing products (FORCE_SEED)...');
+            console.log('🗑️  Clearing existing products and admin user (FORCE_SEED)...');
             await Product.deleteMany({});
+            await User.deleteOne({ email: 'admin@tailorshop.com' });
         }
 
         const productCount = await Product.countDocuments();
