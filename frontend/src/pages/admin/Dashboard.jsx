@@ -88,9 +88,9 @@ const Dashboard = () => {
                         <div className={`w-12 h-12 md:w-14 md:h-14 rounded-xl md:rounded-2xl ${card.bg} ${card.color} flex items-center justify-center transition-all group-hover:scale-110 shrink-0`}>
                             <card.icon size={24} className="md:size-[28px]" />
                         </div>
-                        <div className="space-y-0.5 md:space-y-1">
-                            <p className="text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-widest">{card.title}</p>
-                            <h4 className="text-xl md:text-3xl font-bold text-white tracking-tight">{card.value}</h4>
+                        <div className="space-y-1 md:space-y-2">
+                            <p className="text-xs md:text-sm font-bold text-slate-400 uppercase tracking-widest">{card.title}</p>
+                            <h4 className="text-2xl md:text-4xl font-bold text-white tracking-tight">{card.value}</h4>
                         </div>
                     </div>
                 ))}
@@ -134,7 +134,7 @@ const Dashboard = () => {
                                             )}
                                         </td>
                                         <td className="p-4">
-                                            <span className={`px-2 md:px-3 py-1 rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-wider ${
+                                            <span className={`px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider ${
                                                 order?.status === 'delivered' ? 'bg-green-500/10 text-green-500' :
                                                 order?.status === 'processing' ? 'bg-blue-500/10 text-blue-500' :
                                                 order?.status === 'shipped' ? 'bg-purple-500/10 text-purple-500' :
