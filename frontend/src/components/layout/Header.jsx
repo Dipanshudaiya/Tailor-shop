@@ -89,8 +89,8 @@ const Header = () => {
                 {/* Logo */}
                 <div className="flex justify-center lg:justify-start">
                     <Link to="/" className="flex items-center gap-2 group">
-                        <div className="w-8 h-8 md:w-10 md:h-10 bg-primary rounded-lg flex items-center justify-center">
-                            <span className="text-white font-bold text-lg">AS</span>
+                        <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center overflow-hidden rounded-lg">
+                            <img src="/logo.png" alt="As You Like Tailors Logo" className="w-full h-full object-cover" />
                         </div>
                         <span className="font-display font-bold text-lg md:text-2xl tracking-tighter group-hover:text-primary transition-colors whitespace-nowrap">
                             As You Like<span className="text-primary ml-1">TAILOR'S</span>
@@ -198,8 +198,8 @@ const Header = () => {
                                     {/* Header */}
                                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px 18px', borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
                                         <Link to="/" onClick={closeSidebar} style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-                                            <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: '#7c3aed', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                                <span style={{ color: '#fff', fontWeight: '800', fontSize: '14px' }}>AS</span>
+                                            <div style={{ width: '36px', height: '36px', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                                                <img src="/logo.png" alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                             </div>
                                             <div>
                                                 <div style={{ color: '#fff', fontWeight: '800', fontSize: '13px', letterSpacing: '0.1em' }}>AS YOU LIKE</div>

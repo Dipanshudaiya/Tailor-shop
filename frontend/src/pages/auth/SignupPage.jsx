@@ -29,11 +29,16 @@ const SignupPage = () => {
             <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="glass-panel w-full max-w-md p-8 md:p-12 space-y-8"
+                className="glass-panel w-full max-w-md p-8 md:p-12 space-y-8 relative"
             >
-                <div className="text-center space-y-2">
-                    <h1 className="text-4xl font-display font-bold">Join the Atelier</h1>
-                    <p className="text-slate-400">Experience world-class bespoke tailoring</p>
+                <div className="flex items-center gap-4 md:gap-6 mb-8">
+                    <Link to="/" className="inline-block w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden border-2 border-primary/30 shadow-lg hover:border-primary transition-all flex-shrink-0">
+                        <img src="/logo.png" alt="Logo" className="w-full h-full object-cover" />
+                    </Link>
+                    <div className="space-y-1">
+                        <h1 className="text-3xl md:text-4xl font-display font-bold">Join the Atelier</h1>
+                        <p className="text-sm md:text-base text-slate-400">Experience world-class bespoke tailoring</p>
+                    </div>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">

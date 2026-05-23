@@ -64,7 +64,7 @@ export const CATEGORIES = [
     { title: 'Kurti', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZgDg2s7BX15SWUPtdG-5jVyGZY3KJKvd9yw&s' },
     { title: 'Lehenga', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLO2R74LANWc1NNRFLCoR8WlPujH2z8GGcXA&s' },
     { title: 'Dress', image: 'https://i.pinimg.com/236x/28/26/c0/2826c0971104aa768d60865b7f2d4241.jpg' },
-    { title: 'Saree', image: 'https://th.bing.com/th/id/OIP.Pka14P_2z0UAOiLBEjj8fQHaLI?w=203&h=306&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3' },
+    { title: 'Saree', image: 'https://images.unsplash.com/photo-1610189013531-13c54a8e26cb?q=80&w=800&auto=format&fit=crop' },
     { title: 'Top', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTkqOcv2OCSpvEtC0Vu4E9zNW6qvR0VUNKbQ&s' },
     { title: 'Skirt', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6f4xs6fkpPCJOWmc2ls9vwxqoQGh9LqjsGQ&s' },
 ];

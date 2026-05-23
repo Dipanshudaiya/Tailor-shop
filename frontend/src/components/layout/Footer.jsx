@@ -40,15 +40,18 @@ const Footer = () => {
     return (
         <footer className="bg-dark/50 border-t border-white/5 pt-16 pb-8">
             <div className="container mx-auto px-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 md:gap-12 mb-12">
                     {/* Brand */}
-                    <div className="space-y-6">
-                        <div className="flex items-center gap-2">
+                    <div className="space-y-6 lg:col-span-1">
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0">
+                                <img src="/logo.png" alt="Logo" className="w-full h-full object-cover" />
+                            </div>
                             <span className="font-display font-bold text-2xl tracking-tighter text-white">
                                 As You Like <span className="text-primary">TAILOR</span>
                             </span>
                         </div>
-                        <p className="text-slate-400 leading-relaxed max-w-xs">
+                        <p className="text-slate-400 leading-relaxed max-w-xs text-sm md:text-base">
                             Crafting perfect fits for every occasion. Our master tailors ensure every stitch tells a story of elegance and quality.
                         </p>
                         <div className="flex items-center gap-4">
@@ -65,44 +68,47 @@ const Footer = () => {
                         </div>
                     </div>
 
-                    {/* Links */}
-                    <div>
-                        <h4 className="font-display text-white font-bold text-lg mb-6">Quick Links</h4>
-                        <ul className="space-y-4">
-                            {[
-                                { title: 'Collections', path: '/search' },
-                                { title: 'Men\'s Wear', path: '/mens' },
-                                { title: 'Women\'s Wear', path: '/womens' },
-                                { title: 'Saree Shop', path: '/sarees' },
-                                { title: 'Contact Us', path: '/contact' }
-                            ].map((item) => (
-                                <li key={item.title}>
-                                    <Link to={item.path} className="text-slate-400 hover:text-primary transition-colors hover:translate-x-1 inline-block transform">
-                                        {item.title}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                    {/* Links & Categories (Side-by-side on mobile) */}
+                    <div className="grid grid-cols-2 gap-6 lg:col-span-2">
+                        {/* Links */}
+                        <div>
+                            <h4 className="font-display text-white font-bold text-lg mb-6">Quick Links</h4>
+                            <ul className="space-y-3">
+                                {[
+                                    { title: 'Collections', path: '/search' },
+                                    { title: 'Men\'s Wear', path: '/mens' },
+                                    { title: 'Women\'s Wear', path: '/womens' },
+                                    { title: 'Saree Shop', path: '/sarees' },
+                                    { title: 'Contact Us', path: '/contact' }
+                                ].map((item) => (
+                                    <li key={item.title}>
+                                        <Link to={item.path} className="text-sm md:text-base text-slate-400 hover:text-primary transition-colors hover:translate-x-1 inline-block transform">
+                                            {item.title}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
 
-                    {/* Category */}
-                    <div>
-                        <h4 className="font-display text-white font-bold text-lg mb-6">Categories</h4>
-                        <ul className="space-y-4">
-                            {[
-                                { title: 'Men\'s Wear', path: '/mens' },
-                                { title: 'Women\'s Wear', path: '/womens' },
-                                { title: 'Saree Collection', path: '/sarees' },
-                                { title: 'Premium Fabrics', path: '/fabrics' },
-                                { title: 'Alterations', path: '/services/alterations' }
-                            ].map((item) => (
-                                <li key={item.title}>
-                                    <Link to={item.path} className="text-slate-400 hover:text-primary transition-colors hover:translate-x-1 inline-block transform">
-                                        {item.title}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
+                        {/* Category */}
+                        <div>
+                            <h4 className="font-display text-white font-bold text-lg mb-6">Categories</h4>
+                            <ul className="space-y-3">
+                                {[
+                                    { title: 'Men\'s Wear', path: '/mens' },
+                                    { title: 'Women\'s Wear', path: '/womens' },
+                                    { title: 'Saree Collection', path: '/sarees' },
+                                    { title: 'Premium Fabrics', path: '/fabrics' },
+                                    { title: 'Alterations', path: '/services/alterations' }
+                                ].map((item) => (
+                                    <li key={item.title}>
+                                        <Link to={item.path} className="text-sm md:text-base text-slate-400 hover:text-primary transition-colors hover:translate-x-1 inline-block transform">
+                                            {item.title}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
 
                     {/* Newsletter */}
@@ -130,7 +136,12 @@ const Footer = () => {
                 </div>
 
                 <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-slate-500 text-sm">
-                    <p>© 2024 As You Like Tailors. All rights reserved.</p>
+                    <div className="flex flex-col gap-1 items-center md:items-start">
+                        <p>© 2024 As You Like Tailors. All rights reserved.</p>
+                        <p className="font-display italic text-lg text-primary tracking-wide">
+                            Built by Dipanshu Daiya
+                        </p>
+                    </div>
                     <div className="flex gap-6">
                         <a href="#" className="hover:text-slate-300">Privacy Policy</a>
                         <a href="#" className="hover:text-slate-300">Terms of Service</a>

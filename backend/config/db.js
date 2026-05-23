@@ -37,7 +37,9 @@ const connectDB = async () => {
         cached.conn = await cached.promise;
     } catch (e) {
         cached.promise = null;
-        console.error(`❌ MongoDB Error: ${e.message}`);
+        console.error(`❌ MongoDB Connection Error: ${e.message}`);
+        console.error(`🔗 URI used: ${mongoUri.replace(/:([^@]+)@/, ':****@')}`); // Mask password
+        console.error('👉 Please check if your IP is whitelisted in MongoDB Atlas and if the URI is correct.');
         throw e;
     }
 

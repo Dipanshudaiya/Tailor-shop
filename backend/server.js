@@ -48,53 +48,61 @@ const startServer = async () => {
     // In local development or if seeding is requested
     const shouldSeed = process.env.NODE_ENV === 'development' || process.env.SEED_DB === 'true';
     
-    if (shouldSeed) {
-        await connectDB();
+    try {
+        if (shouldSeed) {
+            await connectDB();
 
-        // FORCE_SEED is for manual data sync only. Set to false for production safety.
-        const FORCE_SEED = process.env.FORCE_SEED === 'true' || false; 
-        if (FORCE_SEED) {
-            console.log('🗑️  Clearing existing products and admin user (FORCE_SEED)...');
-            await Product.deleteMany({});
-            await User.deleteOne({ email: 'admin@tailorshop.com' });
+            // FORCE_SEED is for manual data sync only. Set to false for production safety.
+            const FORCE_SEED = process.env.FORCE_SEED === 'true' || false; 
+            if (FORCE_SEED) {
+                console.log('🗑️  Clearing existing products and admin user (FORCE_SEED)...');
+                await Product.deleteMany({});
+                await User.deleteOne({ email: 'admin@tailorshop.com' });
+            }
+
+            const productCount = await Product.countDocuments();
+            if (productCount === 0) {
+                console.log('Seeding initial data...');
+                const productsData = require('./data/products');
+                
+                // Ensure Admin user exists with correct role and HASHED password
+                const bcrypt = require('bcryptjs');
+                const salt = await bcrypt.genSalt(10);
+                const hashedPassword = await bcrypt.hash('123456', salt);
+
+                await User.findOneAndUpdate(
+                    { email: 'admin@tailorshop.com' },
+                    { 
+                        name: 'Admin', 
+                        email: 'admin@tailorshop.com', 
+                        password: hashedPassword, 
+                        role: 'admin' 
+                    },
+                    { upsert: true, new: true }
+                );
+                console.log('✅ Admin user verified/created with hashed password');
+
+                await Product.create(productsData);
+                console.log('--- Data Seeded Successfully! ---');
+            }
         }
-
-        const productCount = await Product.countDocuments();
-        if (productCount === 0) {
-            console.log('Seeding initial data...');
-            const productsData = require('./data/products');
-            
-            // Ensure Admin user exists with correct role and HASHED password
-            const bcrypt = require('bcryptjs');
-            const salt = await bcrypt.genSalt(10);
-            const hashedPassword = await bcrypt.hash('123456', salt);
-
-            await User.findOneAndUpdate(
-                { email: 'admin@tailorshop.com' },
-                { 
-                    name: 'Admin', 
-                    email: 'admin@tailorshop.com', 
-                    password: hashedPassword, 
-                    role: 'admin' 
-                },
-                { upsert: true, new: true }
-            );
-            console.log('✅ Admin user verified/created with hashed password');
-
-            await Product.create(productsData);
-            console.log('--- Data Seeded Successfully! ---');
-        }
+    } catch (error) {
+        console.error('❌ Database Initialization failed, but starting server anyway...');
+        console.error(error.message);
     }
 
     // Only listen if not on Vercel
     if (!process.env.VERCEL) {
         app.listen(PORT, () => {
             console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+            console.log(`🚀 API is ready at http://localhost:${PORT}`);
         });
     }
 };
 
-startServer();
+startServer().catch(err => {
+    console.error('💥 Critical Startup Error:', err);
+});
 
 module.exports = app;
 
