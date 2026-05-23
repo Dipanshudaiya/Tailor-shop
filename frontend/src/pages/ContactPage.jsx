@@ -70,13 +70,13 @@ const ContactPage = () => {
 
                     {/* Contact Details */}
                     <div className="space-y-12 py-6">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             {contactInfo.map((info, idx) => (
-                                <div key={idx} className="space-y-4 group">
-                                    <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all shadow-lg border border-white/10">
+                                <div key={idx} className="flex items-start gap-4 group">
+                                    <div className="w-12 h-12 shrink-0 bg-white/5 rounded-xl flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all shadow-lg border border-white/10">
                                         <info.icon size={24} />
                                     </div>
-                                    <div className="space-y-1">
+                                    <div className="space-y-1 mt-1">
                                         <h4 className="font-bold text-white tracking-tight">{info.title}</h4>
                                         <p className="text-sm text-slate-400 leading-relaxed">{info.details}</p>
                                     </div>
